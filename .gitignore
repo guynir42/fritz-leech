@@ -1,7 +1,7 @@
 # custom repo ignored files
 config.yaml
 token
-custom_functions/*
+custom_functions/*.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
