@@ -1,1 +1,6 @@
-put your functions here!
+- Each function file must contain a function with the same name as the file. 
+- Each function must accept three arguments: obj, results, config. 
+- The obj parameter has all the data about the specific candidate. 
+- The results is a dictionary that is uploaded as an annotation. 
+- The config is a dictionary containing the config.yaml parameters.
+- Make any analysis you want and put the results in the dictionary.  

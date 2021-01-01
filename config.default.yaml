@@ -1,0 +1,28 @@
+---
+# point to Fritz or other SkyPortal URL
+url: "http://localhost:5000"
+
+# annotations will have this as their origin
+origin:
+
+# when true, will upload results as annotations to the sources
+upload: false
+
+# filter IDs on SkyPortal that you want to track
+filters: null
+
+# only grab objects that passed >= this date.
+# Use arrow parsable or negative numbers to denote "days ago"
+# Leave null to make no limits on the date
+start_date: null
+
+# this tells the API to load the photometry data, if it exists
+needs_photometry: false
+
+# this tells the API to load the spectroscopy  data, if it exists
+needs_spectroscopy: false
+
+# arrow parsable date when the analysis was updated.
+# any annotations modified earlier than this date are ignored
+# if empty, will only load objects without the given annotation
+annotation_date: null

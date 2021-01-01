@@ -38,8 +38,13 @@ import custom_functions
 
 def load_config():
     # load the config YAML file
-    with open(os.path.dirname(__file__)+'/config.yaml') as file:
-        config = yaml.full_load(file)
+
+    try:
+        with open(os.path.dirname(__file__)+'/config.yaml') as file:
+            config = yaml.full_load(file)
+    except FileNotFoundError:
+        with open(os.path.dirname(__file__) + '/config.default.yaml') as file:
+            config = yaml.full_load(file)
 
     # get the SkyPortal token from file
     with open(os.path.dirname(__file__)+"/token", "r") as file:
@@ -86,7 +91,7 @@ def run_all_functions(obj, results, config):
 
     for module_path in glob.glob(os.path.dirname(__file__)+'/custom_functions/*.py'):
         module_name = os.path.splitext(os.path.basename(module_path))[0]
-        print(f"running module '{module_name}'")
+        print(f"running module '{module_name}' on object '{obj['id']}'")
 
         # module must have a function with the same name as module itself
         module = importlib.import_module("custom_functions." + module_name)
@@ -108,14 +113,14 @@ def post_annotation(obj, results, config):
     else:
         r = requests.post(f"{config['url']}/api/annotation", headers=head, data=data)
 
+    if r.status_code != 200:
+        raise(f"Could not post the annotation to obj_id= {obj['id']}")
 
 if __name__ == "__main__":
 
     config = load_config()
 
     objects = load_objects(config)
-
-    # obj = {id: 'sample_id'}  # this should be replaced by an API call and a loop over all objects
 
     for obj in objects:
         results = {}  # this will be uploaded as an annotation
